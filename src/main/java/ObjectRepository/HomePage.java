@@ -1,5 +1,6 @@
 package ObjectRepository;
 
+import Functionalities.Util;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,6 +12,7 @@ public class HomePage  extends TestBase{
     public  HomePage(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver,60);
+        util = new Util(driver);
         PageFactory.initElements(driver,this);
 
     }
@@ -31,6 +33,7 @@ public class HomePage  extends TestBase{
         btnContinue.click();
     }
     public void ClickOnbtnLogin() {
+
         btnLogin.click();
     }
     public void ClickOnImgHome() {

@@ -2,8 +2,7 @@ package ObjectRepository;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import javax.rmi.CORBA.Util;
+import Functionalities.Util;
 
 public class TestBase {
 

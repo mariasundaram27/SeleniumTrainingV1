@@ -30,4 +30,25 @@ public class LoginPage_Scenarios {
         loginPage.click_on_btnlogin();
         System.out.println("Login Success");
     }
+    @Test
+    public void Login_invalid(){
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Blessie\\SeleniumTrainingv2\\SeleniumTraining\\driver\\chromedriver.exe");
+        WebDriver driver;
+        driver = new ChromeDriver();
+        driver.get("https://www.etihad.com/en-in/");
+        driver.manage().window().maximize();
+
+        LoginPage loginPage =new LoginPage(driver);
+        HomePage homePage =new HomePage(driver);
+
+        homePage.Click_On_btnCloseCookieNoti();
+        homePage.ClickOnbtnContinue();
+        homePage.ClickOnbtnLogin();
+
+        loginPage.enter_username("mariasundaram@gmail.com");
+        loginPage.enter_password("Lydia@1304");
+        loginPage.click_on_btnlogin();
+        System.out.println("Login Success");
+
+    }
 }

@@ -1,5 +1,8 @@
 package ObjectRepository;
 
+import Functionalities.Util;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,6 +14,7 @@ public class RegisterPage extends TestBase {
     public  RegisterPage(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver,60);
+        util =new Util(driver);
         PageFactory.initElements(driver,this);
 
     }
@@ -21,39 +25,62 @@ public class RegisterPage extends TestBase {
     @FindBy(id="firstName")
     private WebElement txtFistName;
 
-    @FindBy(id="lastName")
+    @FindBy(xpath="//div[@class='control-group eyg-last-name-field']//input[@id='lastName']")
     private WebElement txtLastName;
 
     @FindBy(id="email")
     private WebElement txtEmailid;
 
-    @FindBy(xpath="//label[@for='termsCondition']//span[@class='check']")
+    @FindBy(css ="label[for='termsCondition'] span[class='check']" )
     private WebElement chktermsCondition;
 
     @FindBy(id="quickFormButton")
     private WebElement btnSignUp;
 
-    public void select_lstTitle(String title){
+    @FindBy(xpath="//input[@placeholder='DD']")
+    private WebElement txtDay;
+    @FindBy(xpath="//input[@placeholder='MM']")
+    private WebElement txtMonth;
+    @FindBy(xpath="//input[@placeholder='YYYY']")
+    private WebElement txtYear;
 
+    public void select_lstTitle(String title){
+        lstTitlee.click();
+        driver.findElement(By.id("eygList"+title)).click();
     }
 
     public void enter_firstname(String firstname){
         txtFistName.clear();
-        txtFistName.click();
+        txtFistName.sendKeys(firstname);
+        txtFistName.sendKeys(Keys.TAB);
     }
 
     public void enter_lastname(String lastname){
         txtLastName.clear();
-        txtLastName.click();
+        txtLastName.sendKeys(lastname);
+        txtLastName.sendKeys(Keys.TAB);
+
+    }
+    public  void select_dateOfBirth(String date){
+        txtDay.clear();
+        txtMonth.clear();
+        txtYear.clear();
+
+        String [] str = date.split("/");
+        txtDay.sendKeys(str[0]);
+        txtMonth.sendKeys(str[1]);
+        txtYear.sendKeys(str[2]);
     }
 
     public void enter_Emailid(String email){
         txtEmailid.clear();
-        txtEmailid.click();
+        txtEmailid.sendKeys(email);
+        txtEmailid.sendKeys(Keys.TAB);
     }
 
     public void check_chktermsCondition(){
-        chktermsCondition.click();
+       // driver.findElement(By.cssSelector("label[for='termsCondition'] span[class='check']")).click();
+        driver.findElement(By.cssSelector("label[for='termsCondition'] span[class='check checkbox-outline']")).click();
     }
 
     public void click_btnSignUp(){
