@@ -23,12 +23,19 @@ public class BookingTicket {
         homePage.Click_On_btnCloseCookieNoti();
         homePage.ClickOnbtnContinue();
         BookTicketPage bookTicketPage = new BookTicketPage(driver);
+        Thread.sleep(2000);
         bookTicketPage.search_oneWay("Kolkata, CCU","London, LHR");
         Thread.sleep(2000);
         bookTicketPage.select_outbound("15/06/2022");
         bookTicketPage.select_cabin("Business");
         bookTicketPage.select_Guests(2,0,0);
+        Thread.sleep(2000);
         bookTicketPage.clickonBtnSearchAgain();
+      //  bookTicketPage.VerifyTitle("Etihad Airways - Flight selection");
+        Thread.sleep(5000);
+        bookTicketPage.select_bookingAvailableDate();
+        bookTicketPage.select_flight();
+        bookTicketPage.select_fare();
 
     }
 }

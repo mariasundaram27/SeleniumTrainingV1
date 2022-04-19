@@ -6,6 +6,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+
+import java.util.List;
 
 public class BookTicketPage extends  TestBase{
 
@@ -70,7 +75,8 @@ public class BookTicketPage extends  TestBase{
        // txtoneWayOrigin.sendKeys(oneWayOrgin);
        // btnDesClose.click();
         txtoneWayDestination.sendKeys(oneWayDes);
-        btnSearchFlights.click();
+        driver.findElement(By.xpath("//div[@class='dropdownsecondrows']")).click();
+      //  btnSearchFlights.click();
     }
     public void select_outbound(String date){
         txtOutbound.clear();
@@ -94,6 +100,60 @@ public class BookTicketPage extends  TestBase{
         for (int i=0;i<infant;i++) {
             driver.findElement(By.xpath("//button[@id='passenger-type-inc-2']")).click();
         }
+
+    }
+    public void VerifyTitle(String title) throws InterruptedException {
+        Thread.sleep(5000);
+        String strtitle = driver.getTitle();
+        Assert.assertEquals(strtitle,title);
+    }
+
+    public void select_bookingAvailableDate() throws InterruptedException {
+
+        WebDriverWait w = new WebDriverWait(driver,60);
+        w.until(ExpectedConditions.presenceOfElementLocated (By.className("spark-carousel__item")));
+
+        List<WebElement> lstdates = driver.findElements(By.className("spark-carousel__item"));
+        for(WebElement e : lstdates) {
+             if (!e.getText().contains("N/A")){
+                 System.out.println("Book Date details :"+e.getText());
+                 e.click();
+                 break;
+             }
+        }
+    }
+
+    public void select_flight()
+    {
+        List<WebElement> lstdates = driver.findElements(By.className("price-content-wrapper"));
+        for(WebElement e : lstdates) {
+           e.click();
+        }
+    }
+    public void select_fare() throws InterruptedException {
+
+        WebDriverWait w = new WebDriverWait(driver,60);
+        List<WebElement> lstdates = driver.findElements(By.xpath("//button[@data-test-id=\"offer-select-button\"]"));
+        for(WebElement e : lstdates) {
+            System.out.println("Book Date details :"+e.getText());
+            e.click();
+            break;
+        }
+
+        w.until(ExpectedConditions.presenceOfElementLocated (By.id("dxp-page-navigation-continue-button")));
+        driver.findElement(By.id("dxp-page-navigation-continue-button")).click();
+    }
+
+    public void fillPassangersDetails(int adultcount){
+        WebElement lastname,Firstname,title;
+
+        for(int i=1;i<adultcount;i++)
+        {
+            Firstname =driver.findElement(By.id("firstNamePassengerItemAdt"+i+"BasicInfoEditNameFirstName-passenger-item-ADT-"+i+"-basic-info-edit-name"));
+            lastname=driver.findElement(By.id("lastNamePassengerItemAdt"+i+"BasicInfoEditNameLastName-passenger-item-ADT-"+i+"-basic-info-edit-name"));
+
+        }
+
 
     }
 
